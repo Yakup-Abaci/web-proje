@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style>
+canvas {
+    border:1px solid #000000;
+    background-color: #FFFFFF;
+}
+</style>
+</head>
+<body onload="startGame()">
+
+<script>
+var Masa;
+var Delik1;
+var	Delik2 ;
+var	Delik3;
+var	Delik4 ;
+var	Delik5 ;
+var	Delik6 ;
+var	Delik7 ;
+var	Delik8 ;
+var	Delik9 ;
+var	Delik10 ;
+var	Delik11;
+var	Delik12 ;
+var	Delik13 ;
+var	Delik14 ;
+var	Delik15 ;
+var	Delik16 ;
+var Nisangah;
+var Delikler;
+var hedef =[];
+var hedefler=[45,135,230,315,410,495,585,675,765,855,945,1035,1125,1215,1305,1395];
+var toplar=["0.jpg","1.jpg","2.jpg","3.jpg","4.jpg","5.jpg","6.jpg"];
+var renkler=["mavi","kırmızı","pembe","sarı","siyah","turuncu","yeşil"];
+var vurma;
+var puan;
+var skor;
+var hiz=2;
+var m=40;
+var yasak;
+//var yasaklihedef;
+var kacirilanhedef=10;
+var arkaresim;
+var mySound;
+var gameover;
+var arkamuzik;
+
+function startGame() {
+	myGameArea.start();
+    Masa = new component(1450, 80, "black", 25, 600,"null");
+	Nisangah=new component3(10,10,"white",100,100);
+	vurma=new vur(10,10);
+	arkaresim = new component(1500, 700, "poligon.jpg", 0, 0, "image");
+	
+	Delik1 = new component2(70,640,40,"white");
+	Delik2 = new component2(160,640,40,"white");
+	Delik3 = new component2(250,640,40,"white");
+	Delik4 = new component2(340,640,40,"white");
+	Delik5 = new component2(430,640,40,"white");
+	Delik6 = new component2(520,640,40,"white");
+	Delik7 = new component2(610,640,40,"white");
+	Delik8 = new component2(700,640,40,"white");
+	Delik9 = new component2(790,640,40,"white");
+	Delik10 = new component2(880,640,40,"white");
+	Delik11 = new component2(970,640,40,"white");
+	Delik12 = new component2(1060,640,40,"white");
+	Delik13 = new component2(1150,640,40,"white");
+	Delik14 = new component2(1240,640,40,"white");
+	Delik15 = new component2(1330,640,40,"white");
+	Delik16 = new component2(1420,640,40,"white");
+	puan = new Skor(0,1300,50);
+	
+	
+	Delikler=[Delik1,Delik2,Delik3,Delik4,Delik5,Delik6,Delik7,Delik8,Delik9,Delik10,Delik11,Delik12,Delik13,Delik14,Delik15,Delik16];
+	
+	
+}
+
+var myGameArea = {
+    canvas : document.createElement("canvas"),
+    start : function() {
+
+        this.canvas.width = 1500;
+        this.canvas.height = 700;
+		this.canvas.style.cursor = "none";
+        this.context = this.canvas.getContext("2d");
+        document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+		this.interval = setInterval(updateGameArea, 20);
+		this.frameNo=0;
+        mySound = new sound("silah2.mp3");
+		gameover=new sound("gameover.mp3");
+		arkamuzik=new sound("kovboy2.mp3");
+		window.addEventListener('mousemove', function (e) {
+            Nisangah.x = e.pageX;
+            Nisangah.y = e.pageY;
+        })
+    window.addEventListener('mousedown', function (e) {
+            vurma.x = e.pageX;
+            vurma.y = e.pageY;
+        })
+		window.addEventListener('mouseup', function (e) {
+            vurma.x = false;
+            vurma.y = false;
+        })
+
+	
+	}, 
+    clear : function(){
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    },
+	stop : function() {
+    clearInterval(this.interval);
+  }
+
+    }
+	
+function Skor(skor,x,y){
+this.x=x;
+this.y=y;
+this.skor=skor;
+this.update= function(){
+	ctx=myGameArea.context;
+	ctx.font = "30px Arial";
+	ctx.fillStyle = "red";
+	ctx.fillText("Skor:"+this.skor,this.x,this.y);
+}
+}
+
+function kacanhedef(kacirilanhedef){
+	ctx=myGameArea.context;
+	ctx.font = "30px Arial";
+	ctx.fillStyle = "red";
+	ctx.fillText("Kalan Kacirma sayisi:"+kacirilanhedef,800,50);
+
+
+}
+function sound(src) {
+  this.sound = document.createElement("audio");
+  this.sound.src = src;
+  this.sound.setAttribute("preload", "auto");
+  this.sound.setAttribute("controls", "none");
+  this.sound.style.display = "none";
+  document.body.appendChild(this.sound);
+  this.play = function(){
+    this.sound.play();
+  }
+  this.stop = function(){
+    this.sound.pause();
+  }
+  
+}
+
+
+function vur(x,y){
+this.x=x;
+this.y=y;
+}
+
+function component(width, height, renk, x, y,tip) {
+    this.width = width;
+    this.height = height;
+    this.x = x;
+    this.y = y; 
+	this.gravity = 0;
+    this.gravitySpeed = 0;	
+	if (tip == "image") {
+    this.image = new Image();
+    this.image.src = renk;
+  }	
+    this.update = function() {
+        ctx = myGameArea.context;
+		if (tip == "image") {
+      ctx.drawImage(this.image,
+        this.x,
+        this.y,
+        this.width, this.height);
+    }else{
+        ctx.fillStyle = renk;
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+    }
+	}
+	
+	 this.clicked = function() {
+        var myleft = this.x;
+        var myright = this.x + (this.width);
+        var mytop = this.y;
+        var mybottom = this.y + (this.height);
+        var clicked = false;
+        if ((mybottom >= vurma.y) && (mytop <= vurma.y) && (myright >= vurma.x) && (myleft <= vurma.x)) {
+            clicked = true;
+        }
+        return clicked;
+    }
+	
+	}
+
+
+function component2(x,y,cap,renk){
+	this.x=x;
+	this.y=y;
+
+	this.update = function() {
+	ctx = myGameArea.context;
+    ctx.beginPath();
+	ctx.fillStyle = renk;
+	ctx.arc(x,y,cap,0,2*Math.PI);
+	ctx.fill();
+    
+	}
+	
+	
+}
+function component3(width, height, color, x, y) {
+    this.width = width;
+    this.height = height;
+    this.speedX = 0;
+    this.speedY = 0;    
+    this.x = x;
+    this.y = y;    
+    this.update = function() {
+        ctx = myGameArea.context;
+        ctx.fillStyle = color;
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+    }
+}
+
+function updateGameArea() {
+	var x, y;
+    myGameArea.clear();
+	myGameArea.frameNo +=1;
+	
+	if (myGameArea.frameNo == 1 || everyinterval(m)) {
+
+        hedef.push(new component(50, 50, toplar[Math.floor(Math.random() * 7)],hedefler[Math.floor(Math.random() * 17)],580,"image"));
+    }
+	/*
+	if((puan.skor%100)==0){
+	yasak=toplar[Math.floor(Math.random() * 7)];
+	}
+	*/
+	arkamuzik.play();
+		for(i=0;i<hedef.length;i+=1){
+		
+		if (hedef[i].clicked()) 
+		{
+		/*
+		if(parseInt(hedef[i].image.src.substring(hedef[i].image.src.length-5,hedef[i].image.src.length-4))==parseInt(yasak)){
+		alert("yasakli vurdun");
+		hedef.splice(i, 1);
+		}
+		else{*/
+		//alert(parseInt(hedef[i].image.src.substring(hedef[i].image.src.length-5,hedef[i].image.src.length-4)));
+		puan.skor +=40;
+		mySound.play();
+		hedef.splice(i, 1);
+		//}
+		
+		if(100<puan.skor && puan.skor<=200){hiz =3;
+		m=35;}
+		else if(200<puan.skor && puan.skor<=300){hiz =4;
+		m=30;}
+		else if(300<puan.skor && puan.skor<=400){hiz =5;
+		m=25;}
+		else if(400<puan.skor && puan.skor<=500){hiz =6;
+		m=20;}
+		else{
+		if(puan.skor>500){hiz=6;
+		m=15;}
+        }
+		}
+		
+		else if((hedef[i].y+hedef[i].height)==0){
+		hedef.splice(i, 1);
+		kacirilanhedef -=1;
+		if(kacirilanhedef==0){
+		myGameArea.stop();
+		gameover.play();
+		arkamuzik.stop();
+		}
+		}
+		
+		else{
+		if(100<puan.skor && puan.skor<=200){hiz =3;
+		m=35;}
+		else if(200<puan.skor && puan.skor<=300){hiz =4;
+		m=30;}
+		else if(300<puan.skor && puan.skor<=400){hiz =5;
+		m=25;}
+		else if(400<puan.skor && puan.skor<=500){hiz =6;
+		m=20;}
+		else{
+		if(puan.skor>500){hiz=6;
+		m=15;}
+		}
+		
+		}
+		
+    }
+	
+    arkaresim.update();
+	Masa.update();
+	puan.update(skor,hiz);
+	kacanhedef(kacirilanhedef);
+	for(i=0;i<16;i++) {Delikler[i].update(); }
+	
+	for(i=0;i<hedef.length;i+=1){
+		hedef[i].y -=hiz;
+		hedef[i].update();	
+		}
+		
+	Nisangah.update();
+	
+}
+
+function everyinterval(n) {
+    if ((myGameArea.frameNo / n) % 1 == 0) {return true;}
+    return false;
+
+}
+
+</script>
+</body>
+</html>
+
