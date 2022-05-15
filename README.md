@@ -28,13 +28,13 @@ Oyun esnasında bazı zamanlarda haklarınız 1 azalır. Lakin bu çok az olur. 
 # Kaynaklar
 Renkli toplar paint üzerinden renkleri yuvarlak bir biçimde kesilmiş hali.
 
-Arkaplan müziği = www.youtube.com/watch?v=x8X1GmKdEDE
+Arka plan müziği = www.youtube.com/watch?v=x8X1GmKdEDE
 
 
-Arkaplan resmi = https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.target.com.tr%2Fatis-poligon-galeri%2F&psig=AOvVaw3-lcBr03itw81i2qCav80m&ust=1652728852005000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCNDhwvKc4vcCFQAAAAAdAAAAABAD
+Arka plan resmi = https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.target.com.tr%2Fatis-poligon-galeri%2F&psig=AOvVaw3-lcBr03itw81i2qCav80m&ust=1652728852005000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCNDhwvKc4vcCFQAAAAAdAAAAABAD
 
 
 Atış sesi = www.youtube.com/watch?v=UJx8xmhLdzo
 
 
-Gameover sesi = Street fighter
+
