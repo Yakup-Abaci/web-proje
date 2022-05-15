@@ -9,6 +9,7 @@ Oyunu açar açmaz oyun başlar.
 
 oyunda 7 adet top vardır.
 mavi-kırmızı-pembe-sarı-siyah-turuncu-yeşil dir.
+Bunlar sırayla 0-1-2-3-4-5-6 olarak adlandırılıp eklenmiştir.
 ![0](https://user-images.githubusercontent.com/75831010/168490595-3e3c3c29-0db5-4e16-844b-218cb9cb5d56.jpg)
 ![1](https://user-images.githubusercontent.com/75831010/168490598-0f5a2b75-0dab-49cf-94fe-4d294d2b1814.jpg)
 ![2](https://user-images.githubusercontent.com/75831010/168490600-2da17f66-528d-4aed-ae0a-e6c78624a988.jpg)
